@@ -1,4 +1,4 @@
-package com.soumenprogramming.E_Learning;
+package com.soumenprogramming.elearning;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
