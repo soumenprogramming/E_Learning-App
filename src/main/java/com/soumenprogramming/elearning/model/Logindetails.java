@@ -13,6 +13,9 @@ public class Logindetails {
     @Column(name = "username")
     private String username;
 
+    @Column(name="email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 
@@ -41,12 +44,11 @@ public class Logindetails {
         this.password = password;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Logindetails{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                '}';
-//    }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

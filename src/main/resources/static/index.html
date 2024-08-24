@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearCodeHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="dashboard-container">
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <ul class="nav-left">
+            <li class="logo">
+                <a href="#"><img src="/NewLogo.png" alt="Logo"></a>
+            </li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Help</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><button onclick="showModal('signup')">Sign Up</button></li>
+            <li><button onclick="showModal('signin')">Sign In</button></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <section id="Home" class="section active">
+            <div class="heading-container">
+                <h2 class="home-heading">
+                    <span class="word">Transform</span>
+                    <span class="word">Your</span>
+                    <span class="word">Coding</span>
+                    <span class="word">Journey:</span>
+                    <span class="word">Master</span>
+                    <span class="word">the</span>
+                    <span class="word">Art</span>
+                    <span class="word">of</span>
+                    <span class="word">Clear,</span>
+                    <span class="word">Effortless</span>
+                    <span class="word">Code</span>
+                    <span class="word">with</span>
+                    <span class="word">   "ClearCodeHub" </span>
+                </h2>
+            </div>
+            <p>Welcome to our eLearning platform where you can learn and grow. We offer various courses to help you improve your skills.</p>
+            <div class="image-container">
+                <img src="/watermark-transformed-removebg-preview.png" alt="Promotional Photo">
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div id="signup-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('signup')">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="signup-username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p id="signupResponse"></p>
+    </div>
+</div>
+
+<!-- Sign In Modal -->
+<div id="signin-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('signin')">&times;</span>
+        <h2>Sign In</h2>
+        <form id="signinForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="signin-username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+        <p id="signinResponse"></p>
+    </div>
+</div>
+
+<!-- Bottom Navigation Bar -->
+<nav class="bottom-nav">
+    <ul>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Copyright 2023</a></li>
+    </ul>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sign Up Form Elements
+        const signupForm = document.getElementById('signupForm');
+        const signupResponse = document.getElementById('signupResponse');
+
+        // Sign In Form Elements
+        const signinForm = document.getElementById('signinForm');
+        const signinResponse = document.getElementById('signinResponse');
+
+        // Sign Up Form Submission
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the values from the sign up form
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            // Send the data to the backend via a POST request
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            })
+            .then(response => response.text())
+            .then(data => {
+                signupResponse.textContent = data;
+            })
+            .catch(error => {
+                signupResponse.textContent = 'Error: ' + error;
+            });
+        });
+
+        // Sign In Form Submission
+        signinForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get the values from the sign in form
+            const username = document.getElementById('signin-username').value;
+            const password = document.getElementById('signin-password').value;
+
+            // Send the data to the backend via a POST request
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.text())
+            .then(data => {
+                signinResponse.textContent = data;
+            })
+            .catch(error => {
+                signinResponse.textContent = 'Error: ' + error;
+            });
+        });
+
+        // Show and Hide Modal Functions
+        function showModal(modalId) {
+            document.getElementById(modalId + '-modal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId + '-modal').style.display = 'none';
+        }
+
+        // Close modal if clicked outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // Expose modal functions to global scope (for button click handlers in HTML)
+        window.showModal = showModal;
+        window.closeModal = closeModal;
+    });
+</script>
+
+</body>
+</html>
