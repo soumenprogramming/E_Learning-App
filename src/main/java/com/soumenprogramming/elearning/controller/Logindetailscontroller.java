@@ -2,9 +2,7 @@ package com.soumenprogramming.elearning.controller;
 
 import com.soumenprogramming.elearning.dao.Logindetailsservice;
 import com.soumenprogramming.elearning.model.Logindetails;
-import com.soumenprogramming.elearning.repository.Logindetailsrepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,44 +14,33 @@ public class Logindetailscontroller {
     @Autowired
     private Logindetailsservice logindetailsservice;
 
-//    @Autowired
-//    private Logindetailsrepo logindetailsrepo;
-
-//    @Autowired
-//    @Qualifier("logindetailsrepo")
-//    public void setLogindetailsrepo(Logindetailsrepo logindetailsrepo){
-//        this.logindetailsrepo=logindetailsrepo;
-//    }
-
-//    @Autowired
-//    @Qualifier("logindetailsservice")
-//    public void setLogindetailsservice(Logindetailsservice logindetailsservice){
-//        this.logindetailsservice=logindetailsservice;
-//    }
-
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Logindetails logindetails) {
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
-        if (existingUser == null) {
+        Logindetails existingEmail = logindetailsservice.findByEmail(logindetails.getEmail());
+
+        if (existingUser != null) {
+            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+        } else if (existingEmail != null) {
+            return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+        } else {
             logindetailsservice.save(logindetails);
             return new ResponseEntity<>("Registration Successful", HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
         }
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Logindetails logindetails) {
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
-        if (existingUser != null) {
-            if (existingUser.getPassword().equals(logindetails.getPassword())) {
-                return new ResponseEntity<>("Login Successful", HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>("Password is incorrect", HttpStatus.UNAUTHORIZED);
-            }
-        } else {
+
+        if (existingUser == null) {
             return new ResponseEntity<>("Username is incorrect", HttpStatus.NOT_FOUND);
+        }
+
+        if (existingUser.getPassword().equals(logindetails.getPassword())) {
+            return new ResponseEntity<>("Login Successful", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Password is incorrect", HttpStatus.UNAUTHORIZED);
         }
     }
 

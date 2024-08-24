@@ -29,6 +29,13 @@ public class Logindetailsservice {
         return logindetailsrepo.findByUsername(username);
     }
 
+    @Transactional(readOnly = true)
+    public Logindetails findByEmail(String email) {
+        List<Logindetails> results = logindetailsrepo.findByEmail(email);
+        return results.isEmpty() ? null : results.get(0);  // Return the first result if multiple exist
+    }
+
+
     @Transactional
     public Logindetails update(int id, Logindetails updatedLogindetails) {
         Logindetails existingLogindetails = logindetailsrepo.findById(id).orElse(null);
