@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class Logindetailscontroller {
@@ -30,17 +33,24 @@ public class Logindetailscontroller {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Logindetails logindetails) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody Logindetails logindetails) {
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
+        Map<String, String> response = new HashMap<>();
 
         if (existingUser == null) {
-            return new ResponseEntity<>("Username is incorrect", HttpStatus.NOT_FOUND);
+            response.put("status", "error");
+            response.put("message", "Username is incorrect");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
         if (existingUser.getPassword().equals(logindetails.getPassword())) {
-            return new ResponseEntity<>("Login Successful", HttpStatus.OK);
+            response.put("status", "success");
+            response.put("message", "Login Successful");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Password is incorrect", HttpStatus.UNAUTHORIZED);
+            response.put("status", "error");
+            response.put("message", "Password is incorrect");
+            return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
     }
 
