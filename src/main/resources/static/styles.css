@@ -20,6 +20,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background: white;
 }
+
 /* Dropdown Menu Styles */
 .dropdown {
     position: relative;
@@ -30,7 +31,7 @@ body {
     display: none;
     position: absolute;
     right: 0;
-    background-color: #fff;
+    background-color: white;
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
@@ -45,14 +46,12 @@ body {
 }
 
 .dropdown-menu a:hover {
-    background-color: #f1f1f1;
+    background-color: #ddd;
 }
 
 .dropdown.show .dropdown-menu {
     display: block;
 }
-
-
 
 /* Heading Styles */
 .home-heading {
@@ -245,7 +244,7 @@ body {
     color: #555;
 }
 
-.input-group input {
+.input-group input, .input-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -253,7 +252,7 @@ body {
     box-sizing: border-box;
 }
 
-.input-group input:focus {
+.input-group input:focus, .input-group textarea:focus {
     border-color: #a4b0e7;
     outline: none;
 }
@@ -272,6 +271,38 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #45a049;
     transform: scale(1.05);
+}
+
+/* Contact Form Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form .input-group textarea {
+    resize: vertical;
+}
+
+.contact-details {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contact-details h3 {
+    margin-bottom: 10px;
+}
+
+.contact-details p {
+    margin: 5px 0;
+}
+
+.contact-details a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
 }
 
 /* Bottom Navigation Bar */
@@ -297,4 +328,27 @@ button[type="submit"]:hover {
 .bottom-nav ul li a {
     color: white;
     text-decoration: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .top-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .top-nav .nav-left {
+        margin-bottom: 10px;
+    }
+
+    .heading-container, .image-container {
+        position: static;
+        transform: none;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+
+    .image-container img {
+        max-width: 100%;
+    }
 }

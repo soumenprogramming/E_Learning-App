@@ -66,33 +66,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
- function toggleDropdown() {
-     document.querySelector('.dropdown').classList.toggle('show');
- }
+    // Show and Hide Modal Functions
+    function showModal(modalId) {
+        document.getElementById(modalId + '-modal').style.display = 'block';
+    }
 
- function showModal(modalId) {
-     document.getElementById(modalId + '-modal').style.display = 'block';
- }
+    function closeModal(modalId) {
+        document.getElementById(modalId + '-modal').style.display = 'none';
+    }
 
- function closeModal(modalId) {
-     document.getElementById(modalId + '-modal').style.display = 'none';
- }
+    // Toggle Dropdown Menu
+    function toggleDropdown() {
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    }
 
- window.onclick = function(event) {
-     if (!event.target.matches('#accountButton')) {
-         var dropdowns = document.getElementsByClassName("dropdown-menu");
-         for (var i = 0; i < dropdowns.length; i++) {
-             var openDropdown = dropdowns[i];
-             if (openDropdown.classList.contains('show')) {
-                 openDropdown.classList.remove('show');
-             }
-         }
-     }
- }
+    // Handle Navigation
+    const sections = document.querySelectorAll('.section');
+    document.querySelectorAll('.top-nav a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const targetId = this.id.replace('Link', '');
+            sections.forEach(section => {
+                section.style.display = (section.id === targetId) ? 'block' : 'none';
+            });
+        });
+    });
 
+    // Handle Contact Page Navigation
+    document.getElementById('contactLink').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Navigate to contact page or show contact section
+        const contactSection = document.getElementById('Contact');
+        sections.forEach(section => section.style.display = 'none');
+        contactSection.style.display = 'block';
+    });
 
+    // Close modal if clicked outside of it
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
 
-    // Expose modal functions to global scope (for button click handlers in HTML)
+        if (!event.target.matches('#accountButton')) {
+            var dropdowns = document.getElementsByClassName("dropdown-menu");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.style.display === 'block') {
+                    openDropdown.style.display = 'none';
+                }
+            }
+        }
+    }
+
+    // Expose functions to global scope
     window.showModal = showModal;
     window.closeModal = closeModal;
+    window.toggleDropdown = toggleDropdown;
 });
