@@ -14,11 +14,11 @@
             <li class="logo">
                 <a href="#"><img src="/NewLogo.png" alt="Logo"></a>
             </li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Courses</a></li>
-            <li><a href="#">Help</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#" id="homeLink">Home</a></li>
+            <li><a href="#" id="coursesLink">Courses</a></li>
+            <li><a href="#" id="helpLink">Help</a></li>
+            <li><a href="#" id="aboutLink">About</a></li>
+            <li><a href="#" id="contactLink">Contact</a></li>
         </ul>
         <ul class="nav-right">
             <li><button onclick="showModal('signup')">Sign Up</button></li>
@@ -57,6 +57,44 @@
             <p>Welcome to our eLearning platform where you can learn and grow. We offer various courses to help you improve your skills.</p>
             <div class="image-container">
                 <img src="/watermark-transformed-removebg-preview.png" alt="Promotional Photo">
+            </div>
+        </section>
+
+        <section id="Courses" class="section" style="display: none;">
+            <!-- Courses section content -->
+        </section>
+
+        <section id="Help" class="section" style="display: none;">
+            <!-- Help section content -->
+        </section>
+
+        <section id="About" class="section" style="display: none;">
+            <!-- About section content -->
+        </section>
+
+        <!-- Contact Section -->
+        <section id="Contact" class="section" style="display: none;">
+            <h2>Contact Us</h2>
+            <form id="contactForm" class="contact-form">
+                <div class="input-group">
+                    <label for="contact-name">Name</label>
+                    <input type="text" id="contact-name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="contact-query">Your Query</label>
+                    <textarea id="contact-query" name="query" placeholder="Enter your message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <div class="contact-details">
+                <h3>ClearCodeHub Contact Details</h3>
+                <p>Email: <a href="mailto:support@clearcodehub.com">support@clearcodehub.com</a></p>
+                <p>Phone: +1 (123) 456-7890</p>
+                <p>Address: 123 Coding Street, Tech City, TC 45678</p>
             </div>
         </section>
     </div>
