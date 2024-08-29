@@ -12,13 +12,13 @@
     <nav class="top-nav">
         <ul class="nav-left">
             <li class="logo">
-                <a href="#"><img src="/NewLogo.png" alt="Logo"></a>
+                <a href="#" id="logoLink"><img src="/NewLogo.png" alt="Logo"></a>
             </li>
-            <li><a href="#" id="homeLink">Home</a></li>
-            <li><a href="#" id="coursesLink">Courses</a></li>
-            <li><a href="#" id="helpLink">Help</a></li>
-            <li><a href="#" id="aboutLink">About</a></li>
-            <li><a href="#" id="contactLink">Contact</a></li>
+            <li><a href="#" id="homeLink" onclick="showSection('Home')">Home</a></li>
+            <li><a href="#" id="coursesLink" onclick="showSection('Courses')">Courses</a></li>
+            <li><a href="#" id="helpLink" onclick="showSection('Help')">Help</a></li>
+            <li><a href="#" id="aboutLink" onclick="showSection('About')">About</a></li>
+            <li><a href="#" id="contactLink" onclick="showSection('Contact')">Contact</a></li>
         </ul>
         <ul class="nav-right">
             <li><button onclick="showModal('signup')">Sign Up</button></li>
@@ -68,8 +68,21 @@
             <!-- Help section content -->
         </section>
 
+        <!-- About Section -->
         <section id="About" class="section" style="display: none;">
-            <!-- About section content -->
+            <h2>About NextGenLearn</h2>
+            <p>Welcome to NextGenLearn, your ultimate destination for mastering the skills required for career success. Our mission is to empower learners by providing high-quality, accessible, and practical education that prepares them for the future job market.</p>
+            <h3>Our Mission</h3>
+            <p>At NextGenLearn, we believe in the power of learning to transform lives. Our mission is to provide an innovative platform where aspiring professionals can learn, practice, and achieve their career goals with confidence and competence.</p>
+            <h3>Why Choose Us?</h3>
+            <ul>
+                <li>Expertly Curated Courses: Designed by industry leaders and experts.</li>
+                <li>Flexible Learning: Learn at your own pace, anytime and anywhere.</li>
+                <li>Comprehensive Resources: Access a variety of learning materials including videos, quizzes, and projects.</li>
+                <li>Community Support: Join a vibrant community of learners and mentors.</li>
+            </ul>
+            <h3>Meet Our Team</h3>
+            <p>Our team is made up of passionate educators, industry experts, and tech enthusiasts who are committed to delivering the best learning experience possible.</p>
         </section>
 
         <!-- Contact Section -->

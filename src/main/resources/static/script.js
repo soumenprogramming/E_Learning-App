@@ -121,13 +121,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Handle Contact Page Navigation
+    // Handle Contact and About Page Navigation Separately
     document.getElementById('contactLink').addEventListener('click', function (event) {
         event.preventDefault();
         const contactSection = document.getElementById('Contact');
         sections.forEach(section => section.style.display = 'none');
         contactSection.style.display = 'block';
     });
+
+    document.getElementById('aboutLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        const aboutSection = document.getElementById('About');
+        sections.forEach(section => section.style.display = 'none');
+        aboutSection.style.display = 'block';
+    });
+
+    // Handle Home or Logo Click
+    const homeLink = document.getElementById('homeLink');
+    const logoLink = document.getElementById('logoLink');
+    const firstPageSection = document.getElementById('Home');
+
+    function showHomePage(event) {
+        event.preventDefault();
+        sections.forEach(section => section.style.display = 'none');
+        firstPageSection.style.display = 'block';
+    }
+
+    homeLink.addEventListener('click', showHomePage);
+    logoLink.addEventListener('click', showHomePage);
 
     // Close modal if clicked outside of it
     window.onclick = function (event) {
