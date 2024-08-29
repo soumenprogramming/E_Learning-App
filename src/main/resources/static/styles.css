@@ -484,4 +484,25 @@ button[type="submit"]:hover {
     }
 }
 
+/* Add this to styles.css */
+
+.about-box {
+    border: 2px solid #333; /* Change the color to your preference */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px; /* Adjust width as needed */
+    background-color: #f9f9f9; /* Optional: a background color for the box */
+}
+
+.about-box h2, .about-box h3 {
+    margin-top: 0;
+}
+
+.about-box ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+
 
