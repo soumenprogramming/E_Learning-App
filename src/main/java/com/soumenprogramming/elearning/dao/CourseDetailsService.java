@@ -1,10 +1,12 @@
 package com.soumenprogramming.elearning.dao;
 
+import com.soumenprogramming.elearning.execption.CourseDetailsNotFoundException;
 import com.soumenprogramming.elearning.model.CourseDetails;
 import com.soumenprogramming.elearning.repository.CourseDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Service
 public class CourseDetailsService {
@@ -43,7 +45,7 @@ public class CourseDetailsService {
             // Save updated entity
             return courseDetailsRepo.save(existingCourseDetails);
         } else {
-            throw new RuntimeException("CourseDetails not found with id: " + id);
+            throw new CourseDetailsNotFoundException("CourseDetails not found with id: " + id);
         }
     }
 
@@ -55,5 +57,8 @@ public class CourseDetailsService {
             return true;
         }
         return false;
+    }
+    public List<CourseDetails> findAll() {
+        return courseDetailsRepo.findAll();
     }
 }

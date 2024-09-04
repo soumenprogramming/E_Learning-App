@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.soumenprogramming.elearning.constants.AllConstants.*;
+
 @RestController
 @RequestMapping("/api")
 public class Logindetailscontroller {
@@ -17,7 +19,7 @@ public class Logindetailscontroller {
     @Autowired
     private Logindetailsservice logindetailsservice;
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public ResponseEntity<String> register(@RequestBody Logindetails logindetails) {
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
         Logindetails existingEmail = logindetailsservice.findByEmail(logindetails.getEmail());
@@ -38,8 +40,8 @@ public class Logindetailscontroller {
         Map<String, String> response = new HashMap<>();
 
         if (existingUser == null) {
-            response.put("status", "error");
-            response.put("message", "Username is incorrect");
+            response.put(STATUS, "error");
+            response.put(MESSAGE, "Username is incorrect");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
