@@ -26,7 +26,7 @@
             <li class="dropdown">
                 <button id="accountButton" style="display:none;" onclick="toggleDropdown()">Account</button>
                 <div id="dropdownMenu" class="dropdown-menu">
-                    <a href="#">Profile</a>
+                    <a href="#" onclick="showSection('Profile')">Profile</a>
                     <a href="#">Settings</a>
                     <a href="#">Logout</a>
                 </div>
@@ -68,7 +68,6 @@
             <!-- Help section content -->
         </section>
 
-        <!-- About Section -->
         <section id="About" class="section" style="display: none;">
             <div class="about-box">
                 <h2>About NextGenLearn</h2>
@@ -86,7 +85,6 @@
                 <p>Our team is made up of passionate educators, industry experts, and tech enthusiasts who are committed to delivering the best learning experience possible.</p>
             </div>
         </section>
-
 
         <!-- Contact Section -->
         <section id="Contact" class="section" style="display: none;">
@@ -114,6 +112,24 @@
                 <p>Address: 123 Coding Street, Tech City, TC 45678</p>
             </div>
         </section>
+
+        <!-- Profile Section -->
+        <section id="Profile" class="section" style="display: none;">
+            <h2>Profile</h2>
+            <form id="profileForm" class="profile-form">
+                <div class="input-group">
+                    <label for="profile-username">Username</label>
+                    <input type="text" id="profile-username" name="username" value="CurrentUsername" required>
+                </div>
+                <div class="input-group">
+                    <label for="profile-password">Password</label>
+                    <input type="password" id="profile-password" name="password" value="CurrentPassword" required>
+                </div>
+                <button type="submit">Update</button>
+            </form>
+            <p id="profileResponse"></p>
+        </section>
+
     </div>
 </div>
 

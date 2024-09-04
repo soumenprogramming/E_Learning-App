@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const signinForm = document.getElementById('signinForm');
     const signinResponse = document.getElementById('signinResponse');
 
+    // Contact Form Elements
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    // Profile Form Elements
+    const profileForm = document.getElementById('profileForm');
+    const profileResponse = document.getElementById('profileResponse');
+
     // Sign Up Form Submission
     signupForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -27,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(data => {
                 signupResponse.textContent = data;
+                closeModal('signup');
+                document.getElementById('accountButton').style.display = 'block';
             })
             .catch(error => {
                 signupResponse.textContent = 'Error: ' + error;
@@ -67,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Contact Form Submission
-    const contactForm = document.getElementById('contactForm');
     contactForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -85,12 +94,37 @@ document.addEventListener('DOMContentLoaded', function () {
         })
             .then(response => response.json())
             .then(result => {
-                document.getElementById('successMessage').textContent = 'Query successfully sent!';
+                successMessage.textContent = 'Query successfully sent!';
                 contactForm.reset(); // Clear the form
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.');
+            });
+    });
+
+    // Profile Form Submission
+    profileForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get the values from the profile form
+        const username = document.getElementById('profile-username').value;
+        const password = document.getElementById('profile-password').value;
+
+        // Send the data to the backend via a POST request
+        fetch('/api/updateProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+            .then(response => response.text())
+            .then(data => {
+                profileResponse.textContent = 'Profile Updated Successfully!';
+            })
+            .catch(error => {
+                profileResponse.textContent = 'Error: ' + error;
             });
     });
 
