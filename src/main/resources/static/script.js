@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('signup-password').value;
 
         // Send the data to the backend via a POST request
-        fetch('/api/register', {
+        fetch('http://localhost:8080/api/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
