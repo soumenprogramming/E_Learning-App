@@ -37,10 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(data => {
                 signupResponse.textContent = data;
-                closeModal('signup');
-                document.getElementById('accountButton').style.display = 'block';
+                document.getElementById('signup-username').value = '';
+                document.getElementById('signup-email').value = '';
+                document.getElementById('signup-password').value = '';
+                document.getElementById('confirm-password').value = '';
             })
-            .catch(error => {
                 signupResponse.textContent = 'Error: ' + error;
             });
     });
