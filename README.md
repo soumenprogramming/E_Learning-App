@@ -1,5 +1,8 @@
 E-Learning App
+
+
 An interactive e-learning platform built with Spring Boot for the backend and HTML, CSS, and JavaScript for the frontend.
+
 
 Features
 ✅ User Authentication (Sign Up & Login)
