@@ -25,25 +25,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('signup-password').value;
 
         // Send the data to the backend via a POST request
-
         fetch('http://localhost:8080/api/signup', {
-
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, email, password })
         })
-            .then(response => response.text())
-            .then(data => {
-                signupResponse.textContent = data;
-                document.getElementById('signup-username').value = '';
-                document.getElementById('signup-email').value = '';
-                document.getElementById('signup-password').value = '';
-                document.getElementById('confirm-password').value = '';
-            })
-                signupResponse.textContent = 'Error: ' + error;
-            });
+        .then(response => response.text())
+        .then(data => {
+            signupResponse.textContent = data;
+            document.getElementById('signup-username').value = '';
+            document.getElementById('signup-email').value = '';
+            document.getElementById('signup-password').value = '';
+        })
+        .catch(error => {
+            signupResponse.textContent = 'Error: ' + error;
+        });
     });
 
     // Sign In Form Submission
@@ -55,28 +53,27 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('signin-password').value;
 
         // Send the data to the backend via a POST request
-        fetch('/api/login', {
+        fetch('http://localhost:8080/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, password })
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Hide Sign Up and Sign In buttons
-                    document.querySelector('button[onclick="showModal(\'signup\')"]').style.display = 'none';
-                    document.querySelector('button[onclick="showModal(\'signin\')"]').style.display = 'none';
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Hide Sign Up and Sign In buttons
+                document.querySelector('button[onclick="showModal(\'signin\')"]').style.display = 'none';
 
-                    // Show Account button
-                    document.getElementById('accountButton').style.display = 'block';
-                }
-                signinResponse.textContent = data.message;
-            })
-            .catch(error => {
-                signinResponse.textContent = 'Error: ' + error;
-            });
+                // Show Account button
+                document.getElementById('accountButton').style.display = 'block';
+            }
+            signinResponse.textContent = data.message;
+        })
+        .catch(error => {
+            signinResponse.textContent = 'Error: ' + error;
+        });
     });
 
     // Contact Form Submission
@@ -95,15 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(result => {
-                successMessage.textContent = 'Query successfully sent!';
-                contactForm.reset(); // Clear the form
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+        .then(response => response.json())
+        .then(result => {
+            successMessage.textContent = 'Query successfully sent!';
+            contactForm.reset(); // Clear the form
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
     });
 
     // Profile Form Submission
@@ -122,13 +119,13 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({ username, password })
         })
-            .then(response => response.text())
-            .then(data => {
-                profileResponse.textContent = 'Profile Updated Successfully!';
-            })
-            .catch(error => {
-                profileResponse.textContent = 'Error: ' + error;
-            });
+        .then(response => response.text())
+        .then(data => {
+            profileResponse.textContent = 'Profile Updated Successfully!';
+        })
+        .catch(error => {
+            profileResponse.textContent = 'Error: ' + error;
+        });
     });
 
     // Show and Hide Modal Functions
