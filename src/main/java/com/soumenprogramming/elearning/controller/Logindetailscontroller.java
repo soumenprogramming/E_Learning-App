@@ -2,6 +2,8 @@ package com.soumenprogramming.elearning.controller;
 
 import com.soumenprogramming.elearning.dao.Logindetailsservice;
 import com.soumenprogramming.elearning.model.Logindetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,40 +18,58 @@ import static com.soumenprogramming.elearning.constants.AllConstants.*;
 @RequestMapping("/api")
 public class Logindetailscontroller {
 
+    private static final Logger logger = LoggerFactory.getLogger(Logindetailscontroller.class);
+
     @Autowired
     private Logindetailsservice logindetailsservice;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> register(@RequestBody Logindetails logindetails) {
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<Map<String, String>> register(@RequestBody Logindetails logindetails) {
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
         Logindetails existingEmail = logindetailsservice.findByEmail(logindetails.getEmail());
+        
+        Map<String, String> response = new HashMap<>();
 
         if (existingUser != null) {
-            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+            response.put("status", "error");
+            response.put("message", "Username already exists");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         } else if (existingEmail != null) {
-            return new ResponseEntity<>("Email already exists", HttpStatus.CONFLICT);
+            response.put("status", "error");
+            response.put("message", "Email already exists");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
         } else {
             logindetailsservice.save(logindetails);
-            return new ResponseEntity<>("Registration Successful", HttpStatus.CREATED);
+            response.put("status", "success");
+            response.put("message", "Registration Successful");
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
     }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<Map<String, String>> login(@RequestBody Logindetails logindetails) {
+        logger.info("Login attempt for username: {}", logindetails.getUsername());
+        logger.info("Login request received with body: {}", logindetails);
+        
         Logindetails existingUser = logindetailsservice.findByUsername(logindetails.getUsername());
         Map<String, String> response = new HashMap<>();
 
         if (existingUser == null) {
+            logger.warn("Login failed: Username not found - {}", logindetails.getUsername());
             response.put(STATUS, "error");
             response.put(MESSAGE, "Username is incorrect");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
         if (existingUser.getPassword().equals(logindetails.getPassword())) {
+            logger.info("Login successful for username: {}", logindetails.getUsername());
             response.put("status", "success");
             response.put("message", "Login Successful");
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
+            logger.warn("Login failed: Incorrect password for username - {}", logindetails.getUsername());
             response.put("status", "error");
             response.put("message", "Password is incorrect");
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
