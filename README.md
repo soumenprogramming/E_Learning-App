@@ -94,6 +94,6 @@ Please make sure to update tests as appropriate.
 
 ## Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
+Name - Soumen Manna
 
 Project Link: [https://github.com/yourusername/E-Learning-App](https://github.com/yourusername/E-Learning-App)
