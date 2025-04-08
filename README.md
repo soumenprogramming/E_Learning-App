@@ -95,5 +95,7 @@ Please make sure to update tests as appropriate.
 ## Contact
 
 Name - Soumen Manna
+
 Email - mail2soumen007@gmail.com
+
 Project Link: [https://github.com/yourusername/E-Learning-App](https://github.com/yourusername/E-Learning-App)
