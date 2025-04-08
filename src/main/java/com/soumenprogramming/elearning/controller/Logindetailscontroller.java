@@ -113,11 +113,6 @@ public class Logindetailscontroller {
         Map<String, String> response = new HashMap<>();
         
         try {
-            // Here you can add any additional logout logic like:
-            // - Invalidating sessions
-            // - Clearing tokens
-            // - Logging out from other services
-            
             response.put("status", "success");
             response.put("message", "Logout Successful");
             return new ResponseEntity<>(response, HttpStatus.OK);
