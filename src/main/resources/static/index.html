@@ -30,10 +30,7 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-        /* Force hide profile dropdown by default */
-        #profileDropdown {
-            display: none !important;
-        }
+        /* Profile dropdown will be controlled by JavaScript based on login status */
     </style>
 </head>
 
@@ -62,7 +59,7 @@
                 <a href="courses.html" class="nav-item nav-link">Courses</a>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                 <a href="login.html" class="nav-item nav-link" id="loginLink">Login</a>
-                <div class="nav-item dropdown" id="profileDropdown" style="display: none !important;">
+                <div class="nav-item dropdown" id="profileDropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Profile</a>
                     <div class="dropdown-menu m-0">
                         <a href="profile.html" class="dropdown-item" id="profileLink">My Profile</a>
@@ -86,10 +83,9 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Knowledge at Your Fingertips</h5>
                                 <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <p class="fs-5 text-white mb-4 pb-2">Join thousands of learners on the best online platform. Access top-quality courses, expert instructors, and flexible learning to boost your skills from anywhere, anytime.</p>                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
                                 <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight" id="carouselJoinNowButton">Join Now</a>
                             </div>
                         </div>
@@ -102,9 +98,9 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Best Online Courses</h5>
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Smart Learning Online</h5>
                                 <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
-                                <p class="fs-5 text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea sanctus eirmod elitr.</p>
+                                <p class="fs-5 text-white mb-4 pb-2">Learn anytime, anywhere with expert-led online courses designed to fit your lifestyle. Build skills, earn certificates, and achieve your goals—right from your home.</p>
                                 <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
                                 <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight" id="carouselJoinNowButton">Join Now</a>
                             </div>

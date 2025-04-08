@@ -1,17 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM fully loaded and parsed');
-    
-    // Force hide profile dropdown immediately
-    const profileDropdown = document.getElementById('profileDropdown');
-    if (profileDropdown) {
-        console.log('Force hiding profile dropdown on DOMContentLoaded');
-        profileDropdown.style.display = 'none';
-        // Add inline style to ensure it stays hidden
-        profileDropdown.setAttribute('style', 'display: none !important');
-        
-        // Add a class to force hide it
-        profileDropdown.classList.add('d-none');
-    }
+
     
     // Check and clear any invalid login data
     const loggedInUser = localStorage.getItem('loggedInUser');
@@ -25,6 +14,24 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.removeItem('loggedInUser');
         }
     }
+    // Force hide profile dropdown immediately if user is not logged in
+        const profileDropdown = document.getElementById('profileDropdown');
+        const isLoggedIn = loggedInUser && JSON.parse(loggedInUser).status === 'success';
+
+        if (profileDropdown && !isLoggedIn) {
+            console.log('Force hiding profile dropdown on DOMContentLoaded');
+            profileDropdown.style.display = 'none';
+            // Add inline style to ensure it stays hidden
+            profileDropdown.setAttribute('style', 'display: none !important');
+
+            // Add a class to force hide it
+            profileDropdown.classList.add('d-none');
+        } else if (profileDropdown && isLoggedIn) {
+            console.log('User is logged in, showing profile dropdown');
+            profileDropdown.style.display = 'block';
+            profileDropdown.removeAttribute('style');
+            profileDropdown.classList.remove('d-none');
+        }
     
     // Sign Up Form Elements
     const signupForm = document.getElementById('signupForm');
@@ -54,13 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoutLink = document.getElementById('logoutLink');
     console.log('Logout link element:', logoutLink);
 
-    // Directly hide profile dropdown by default
-    if (profileDropdown) {
-        console.log('Directly hiding profile dropdown');
-        profileDropdown.style.display = 'none';
-        // Add inline style to ensure it stays hidden
-        profileDropdown.setAttribute('style', 'display: none !important');
-    }
 
     // Update UI based on login status
     updateUIForLoginStatus();
@@ -313,16 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Found Join Now buttons:', joinNowButtons.length);
         console.log('Login link element:', loginLink);
         console.log('Profile dropdown element:', profileDropdown);
-        
-        // Force hide profile dropdown by default
-        if (profileDropdown) {
-            console.log('Force hiding profile dropdown in updateUIForLoginStatus');
-            profileDropdown.style.display = 'none';
-            // Add inline style to ensure it stays hidden
-            profileDropdown.setAttribute('style', 'display: none !important');
-            // Add a class to force hide it
-            profileDropdown.classList.add('d-none');
-        }
+
         
         if (loggedIn) {
             // User is logged in
@@ -669,8 +660,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function forceHideProfileDropdownOnAllPages() {
         console.log('Force hiding profile dropdown on all pages');
         const profileDropdown = document.getElementById('profileDropdown');
-        if (profileDropdown) {
-            console.log('Found profile dropdown, hiding it');
+        // Check if user is logged in
+                const loggedInUser = localStorage.getItem('loggedInUser');
+                const isLoggedIn = loggedInUser && JSON.parse(loggedInUser).status === 'success';
+
+                if (!isLoggedIn && profileDropdown) {
+                    console.log('No user logged in, ensuring profile dropdown is hidden');
             profileDropdown.style.display = 'none';
             profileDropdown.setAttribute('style', 'display: none !important');
             profileDropdown.classList.add('d-none');
@@ -682,16 +677,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 dropdownMenu.setAttribute('style', 'display: none !important');
             }
         }
-        
-        // Check if user is logged in
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser) {
-            console.log('No user logged in, ensuring profile dropdown is hidden');
-            if (profileDropdown) {
-                profileDropdown.style.display = 'none';
-                profileDropdown.setAttribute('style', 'display: none !important');
-                profileDropdown.classList.add('d-none');
-            }
+      else if (isLoggedIn && profileDropdown) {
+                  console.log('User is logged in, ensuring profile dropdown is visible');
+                  profileDropdown.style.display = 'block';
+                  profileDropdown.removeAttribute('style');
+                  profileDropdown.classList.remove('d-none');
         }
     }
 
@@ -709,7 +699,10 @@ document.addEventListener('DOMContentLoaded', function () {
         mutations.forEach(function(mutation) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                 const profileDropdownElement = document.getElementById('profileDropdown');
-                if (profileDropdownElement && !isUserLoggedIn()) {
+                 const loggedInUser = localStorage.getItem('loggedInUser');
+                                const isLoggedIn = loggedInUser && JSON.parse(loggedInUser).status === 'success';
+
+                                if (profileDropdownElement && !isLoggedIn) {
                     console.log('MutationObserver detected style change on profile dropdown, forcing hide');
                     profileDropdownElement.style.display = 'none';
                     profileDropdownElement.setAttribute('style', 'display: none !important');
