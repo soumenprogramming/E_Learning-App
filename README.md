@@ -78,7 +78,7 @@ E-Learning-App/
 
 - **Backend**: Spring Boot, Spring Security, Spring Data JPA
 - **Frontend**: HTML5, CSS3, JavaScript, Bootstrap
-- **Database**: H2 (development), MySQL/PostgreSQL (production)
+- **Database**: yugabyte db
 - **Build Tool**: Gradle
 
 ## Contributing
