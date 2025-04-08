@@ -105,4 +105,22 @@ public class Logindetailscontroller {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/logout")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    public ResponseEntity<Map<String, String>> logout(@RequestBody(required = false) String userData) {
+        logger.info("Logout request received");
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            response.put("status", "success");
+            response.put("message", "Logout Successful");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("Error during logout: ", e);
+            response.put("status", "error");
+            response.put("message", "Logout failed");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

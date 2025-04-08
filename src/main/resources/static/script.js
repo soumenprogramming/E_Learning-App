@@ -279,13 +279,7 @@ document.addEventListener('DOMContentLoaded', function () {
         logoutLink.addEventListener('click', function(event) {
             event.preventDefault();
             console.log('Logout clicked');
-            
-            // Clear user data from localStorage
-            localStorage.removeItem('loggedInUser');
-            console.log('User data cleared from localStorage');
-            
-            // Redirect to login page
-            window.location.href = 'login.html';
+            handleLogout();
         });
     }
 
@@ -399,9 +393,45 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to handle logout
     function handleLogout() {
         console.log('Logging out user');
-        localStorage.removeItem('loggedInUser');
-        updateUIForLoginStatus();
-        window.location.href = 'index.html';
+         // Get the logged in user data
+                const loggedInUser = localStorage.getItem('loggedInUser');
+
+                // Make API call to logout endpoint
+                fetch('http://localhost:8080/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: loggedInUser // Send the entire user data as the request body
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Logout failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Logout successful:', data);
+                    // Clear local storage and update UI
+                    localStorage.removeItem('loggedInUser');
+                    updateUIForLoginStatus();
+
+                    // Add a small delay before redirecting to ensure the API call is visible in network tab
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:8080';
+                    }, 500); // 500ms delay
+                })
+                .catch(error => {
+                    console.error('Error during logout:', error);
+                    // Even if API call fails, clear local storage and redirect
+                    localStorage.removeItem('loggedInUser');
+                    updateUIForLoginStatus();
+
+                    // Add a small delay before redirecting to ensure the API call is visible in network tab
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:8080';
+                    }, 500); // 500ms delay
+                });
     }
 
     // Function to load registered courses
@@ -584,13 +614,6 @@ document.addEventListener('DOMContentLoaded', function () {
         loadRegisteredCourses();
     }
 
-    // Handle logout
-    if (logoutLink) {
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            handleLogout();
-        });
-    }
 
     // Function to register for a course
     async function registerForCourse(courseId) {
