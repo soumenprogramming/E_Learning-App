@@ -594,6 +594,7 @@
                 const joinNowButtons = document.querySelectorAll('a[id^="joinNowButton"], a[id^="carouselJoinNowButton"], a[id^="courseJoinNowButton"]');
                 joinNowButtons.forEach(button => {
                     button.style.display = 'none';
+                    button.classList.add('d-none');
                 });
                 
                 // Show profile and logout links, hide login link
@@ -667,6 +668,14 @@
             }
         })();
     </script>
+<script>
+  if (localStorage.getItem('isLoggedIn') === 'true') {
+    var joinBtn = document.getElementById('joinNowButton');
+    if (joinBtn) {
+      joinBtn.style.display = 'none';
+    }
+  }
+</script>
 </body>
 
 </html>

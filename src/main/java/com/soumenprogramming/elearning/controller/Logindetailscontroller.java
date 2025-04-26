@@ -67,6 +67,10 @@ public class Logindetailscontroller {
             logger.info("Login successful for username: {}", logindetails.getUsername());
             response.put("status", "success");
             response.put("message", "Login Successful");
+            response.put("username", existingUser.getUsername());
+            response.put("email", existingUser.getEmail());
+            response.put("fullName", existingUser.getFullName() != null ? existingUser.getFullName() : "");
+            response.put("password", existingUser.getPassword());
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             logger.warn("Login failed: Incorrect password for username - {}", logindetails.getUsername());

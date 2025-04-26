@@ -19,6 +19,9 @@ public class Logindetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "full_name")
+    private String fullName;
+
     // Getters and setters
     public int getId() {
         return id;
@@ -50,5 +53,13 @@ public class Logindetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
