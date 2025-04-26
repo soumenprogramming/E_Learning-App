@@ -231,6 +231,15 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+<script src="script.js"></script>
+<script>
+  if (localStorage.getItem('isLoggedIn') === 'true') {
+    var joinBtn = document.getElementById('joinNowButton');
+    if (joinBtn) {
+      joinBtn.style.display = 'none';
+    }
+  }
+</script>
 </body>
 
 </html>

@@ -1,9 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Hide Join Now buttons if logged in
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
+        // Hide all Join Now buttons (navbar, carousel, course, etc.) robustly
+        const joinNowButtons = document.querySelectorAll("[id^='joinNowButton'], [id^='carouselJoinNowButton'], [id^='courseJoinNowButton'], a.btn[href*='signup'], a[href*='signup']");
+        joinNowButtons.forEach(btn => {
+            btn.style.display = 'none';
+            btn.classList.add('d-none');
+        });
+        // Fallback: Hide any visible button with text 'Join Now'
+        document.querySelectorAll('a, button').forEach(el => {
+            if (el.textContent && el.textContent.trim().toLowerCase().includes('join now')) {
+                el.style.display = 'none';
+                el.classList.add('d-none');
+            }
+        });
+    }
+    }
     console.log('DOM fully loaded and parsed');
 
-    
     // Check and clear any invalid login data
-    const loggedInUser = localStorage.getItem('loggedInUser');
     if (loggedInUser) {
         try {
             // Try to parse the JSON to verify it's valid
